@@ -47,6 +47,7 @@ def get_commit_history(url, headers):
                 'author_email': commit_author_email,
                 'date': commit_date    
             }
+    return all_commits
 
 def main(owner, repo):
     owner = owner

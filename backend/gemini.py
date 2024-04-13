@@ -1,4 +1,5 @@
 import google.generativeai as genai
+import gh_api_caller
 
 GOOGLE_API_KEY='AIzaSyD5UWAso7Dmd6XpUp3wds1GA0-GkTWrddg'
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -32,7 +33,7 @@ def genReadMe(code_string: str) -> str:
     else:
         template = read_md_to_string("template_readme/Project.md")
     
-    response = model.generate_content(f"Generate a ReadME file for this code using this template {template} but only use the sections of the template that are relevant to the code: {code_string}")
+    response = model.generate_content(f"Generate a ReadME file for this code using this template {template} as if you were the developer of the repository but only use the sections of the template that are relevant to the code: {code_string}")
 
     return response.text
 
@@ -49,7 +50,9 @@ if __name__ == '__main__':
     chat = None
     chat_history = []
 
-    string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
+    #string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
+
+    string = gh_api_caller.main()
     print(genReadMe(string))
 
     # idk, chat = readrepo(string, chat_history)

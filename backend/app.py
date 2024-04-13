@@ -54,13 +54,20 @@ def parserepo():
     method = request.method
     
     if method == 'POST':
-        #query = request.json
-        #uery = query['message']
-        query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
-        print(query)
+        query = request.json
 
+        username = query['username']
+        repo = query['repository']
+       
+        print(username)
+        print(repo)
+
+        #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
+
+        full, req, sh = gh_api_caller.main(username, repo)
+        
         global chat
-        ouput, chat = gemini.readrepo(query)
+        ouput, chat = gemini.readrepo(full)
 
         response = {
                 "message" : ouput
@@ -73,9 +80,8 @@ def chat_on_code():
     method = request.method
     
     if method == 'POST':
-        #query = request.json
-        #uery = query['message']
-        query = "write this as a for loop"
+        query = request.json
+        query = query['message']
 
         global chat
         ouput = gemini.chat_func(query, chat)
@@ -83,6 +89,7 @@ def chat_on_code():
         response = {
                 "message" : ouput
             }
+        
         print(response)
         return jsonify(response)
 

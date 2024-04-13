@@ -3,15 +3,12 @@
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check the action property to determine what to do.
-  console.log("ni");
   if (message.action === "generateReadme") {
     // Your logic to handle the 'generateReadme' action goes here.
-    console.log("hi");
-    logCurrentTabUrl();
-    console.log("Received generateReadme action");
+    const url = logCurrentTabUrl();
 
     // Send a response back to the sender.
-    sendResponse({ status: "ReadMe Generation Started" });
+    sendResponse({ message: url });
   } else {
     // Handle any other actions, or send a response indicating the action was not recognized.
     console.log(`Unrecognized action: ${message.action}`);
@@ -27,11 +24,12 @@ function logCurrentTabUrl() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     var currentTab = tabs[0];
     if (currentTab && currentTab.url) {
-      console.log(currentTab.url);
+      return currentTab.url;
     } else {
       console.log('No active tab or URL found.');
     }
   });
+  return "";
 }
 
 // Depending on what your extension does, you might not need to listen to browser action clicks

@@ -35,7 +35,6 @@ def generation():
         username = query['username']
         repo = query['repository']
 
-        print(repo)
         #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
         full, req, sh = gh_api_caller.main(username, repo)
@@ -49,17 +48,17 @@ def generation():
             file.write(output)
         file.close()
         
-        # response = {
-        #         "message" : ouput
-        #     }
-        # print(response)
-        # return jsonify(response)
+        response = {
+                "message" : output
+            }
 
-        try:
-            return send_file('ReadME.md', as_attachment=True)
-        except Exception as e:
-            return str(e)
-    
+        return jsonify(response)
+
+        # try:
+        #     return send_file('ReadME.md', as_attachment=True)
+        # except Exception as e:
+        #     return str(e)
+
 @app.route('/start_chat', methods=['GET', 'POST'])
 def parserepo():
     method = request.method

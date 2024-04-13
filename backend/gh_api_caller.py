@@ -49,13 +49,19 @@ def get_commit_history(url, headers):
             }
     return all_commits
 
+def get_git_tree(url, headers):
+    #hi im ary
+    print("hello world")
+
+
 def main(owner, repo):
     owner = owner
     repo = repo
     path = ''
     
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
-    commit_url = url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
+    commit_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
+    tree_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
 
     token = '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'
     headers = {

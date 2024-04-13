@@ -22,18 +22,22 @@ def chat_func(query_string: str, chat) -> str:
     response = chat.send_message(query_string)
     return response.text
     
-def genReadMe(code_string: str) -> str:
+def genReadMe(output_full: str, output_req: str, output_sh: str) -> str:
     #model = genai.GenerativeModel('gemini-pro')
-
-    response = model.generate_content(f"Determine if this repo is research, a project, or a package and return the result in one word either: research, project, package : {code_string}")
-    print(response.text)
-
-    if response.text == "research":
-        template = read_md_to_string("template_readme/Research.md")
-    else:
-        template = read_md_to_string("template_readme/Project.md")
-    
-    response = model.generate_content(f"Generate a ReadME file for this code using this template {template} as if you were the developer of the repository but only use the sections of the template that are relevant to the code: {code_string}")
+    template = read_md_to_string("template_readme/Project.md")
+    response = model.generate_content(f"""
+                                      Generate a ReadME file for this code using this template {template}.
+                                      I need a Title for the project that replaces the 'Project Title' header
+                                      and write as if you were the developer of this code base. 
+                                      Only use the sections of the template that are relevant to the code: {output_full} 
+                                      The code is in the format: (filepath: content) for each file thorugh each directory and subdirectory.
+                                      Utilize the orgnization of the files for the usage section with details how different files link to each other.
+                                      If {output_req} has information utilize (LIST ALL the required dependencies) it for the prerequisites 
+                                      section including how to install all requied dependencies.
+                                      If {output_sh} has information utilize it for the usage section and installation section, but the usage section 
+                                      should undertand how the files link together and give a description of what files to run to start the entire codebase. 
+                                      Be detailed with all parts of the ReadME so that any developer can undsertand!
+                                      Fill in any URLs possible with their actual URL links otherwise remove them from the template""")
 
     return response.text
 
@@ -52,8 +56,8 @@ if __name__ == '__main__':
 
     #string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
-    string = gh_api_caller.main()
-    print(genReadMe(string))
+    output_full, output_req, output_sh = gh_api_caller.main()
+    print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)
     # idk = chat_func("what does this code do", chat)

@@ -6,6 +6,7 @@ import json
 import requests
 import random
 import gemini
+import gh_api_caller
 app = Flask(__name__)
 app.secret_key = 'repo'
 chat = None
@@ -17,11 +18,21 @@ def generation():
     method = request.method
     
     if method == 'POST':
-        #query = request.json
-        #uery = query['message']
-        query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
-        print(query)
-        ouput = gemini.genReadMe(query)
+        query = request.json
+        
+        username = query['username']
+        repo = query['repository']
+        print(username)
+        print(repo)
+
+        #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
+
+        full, req, sh = gh_api_caller.main(username, repo)
+
+        #print(query)
+
+        ouput = gemini.genReadMe(full, req, sh)
+        
         response = {
                 "message" : ouput
             }

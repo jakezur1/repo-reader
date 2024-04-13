@@ -1,14 +1,13 @@
 {
   "version": "1.0.0",
   "manifest_version": 3,
-  "name": "React Chrome Extension",
-  "description": "This is a Chrome extension built with React and TypeScript",
+  "name": "RepoRead",
+  "description": "This is a chrome extension that generates ReadMe's and Repository explanations by utilizing Gemini 1.5 Pro.",
   "action": {
     "default_popup": "js/index.html",
     "default_title": "React Chrome Extension"
   },
   "background": {
-    "service_worker": ["background.js"],
-    "persistent": false
+    "service_workers": ["background.js"]
   }
 }

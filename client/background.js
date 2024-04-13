@@ -1,3 +1,4 @@
+/*global chrome*/
 // This is a simple message handler that responds to messages with a predefined action.
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check the action property to determine what to do.

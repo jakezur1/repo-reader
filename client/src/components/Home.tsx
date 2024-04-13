@@ -25,23 +25,19 @@ const Home = ({navigate}: any) => {
           const pathSegments = new URL(url).pathname.split('/').filter(Boolean);
           const username = pathSegments[0];
           const repository = pathSegments[1];
+          console.log(username, repository)
           setReadMeIsLoading(true);
           axios.post(`http://127.0.0.1:5000/readme`,
               {
                 username: username,
                 repository: repository
-              }, {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': 'chrome-extension://lckojlmkgfdgahdmpjddkbonggndjobi'
-                }
               })
               .then(res => {
-                console.log('hello')
                 setReadMeIsLoading(false)
-                // chrome.runtime.sendMessage({action: "downloadReadMe", data: ''}, (response: any) => {
-                //   // send file
-                // })
+                const file = response.data
+                chrome.runtime.sendMessage({action: "downloadReadMe", data: file}, (response: any) => {
+                  // send file
+                })
               }).catch(() => {
             console.log('hi')
           })

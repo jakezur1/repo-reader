@@ -11,14 +11,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }).catch(error => {
       console.error("Error:", error);
     });
-  } 
+  }
   else if(message.action == "downloadReadMe"){
-    const data = message.data ;
+    const data = message.data;
+    console.log(data)
     const blob = new Blob([data], {type: 'text/plain'});
     const url = URL.createObjectURL(blob);
     chrome.downloads.download({
       url: url,
-      filename: "myReadMe.txt",
+      filename: "myReadMe.md",
       conflictAction: 'uniquify'
     }, (downloadId) => {
       if (chrome.runtime.lastError) {

@@ -47,15 +47,15 @@ def parserepo():
         print(response)
         return jsonify(response)
     
-@app.route('/start_chat', methods=['GET', 'POST'])
-def parserepo():
+@app.route('/chat', methods=['GET', 'POST'])
+def chat_on_code():
     method = request.method
     
     if method == 'POST':
         #query = request.json
         #uery = query['message']
         query = "write this as a for loop"
-        
+
         global chat
         ouput = gemini.chat_func(query, chat)
 

@@ -1,20 +1,41 @@
 /*global chrome*/
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import AnimatedTextGradient from './AnimatedTextGradient';
+import {queries} from '@testing-library/react';
+import axios from 'axios';
+import { BookLoader } from "react-awesome-loaders";
 
 
-const Home = ({ navigate }: any) => {
+const Home = ({navigate}: any) => {
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const generateReadMe = () => {
-    console.log('krish is a fag');
-    chrome.runtime.sendMessage({ action: "generateReadme" }, (response: any) => {
+    chrome.runtime.sendMessage({action: "generateReadme"}, (response: any) => {
       if (chrome.runtime.lastError) {
-        console.log("retard");
         console.error(chrome.runtime.lastError.message);
         return;
       }
-      console.log("Krish is a queer");
       if (response) {
-        console.log("Response from background:", response.status);
+        const url = response.message
+        console.log("Response from background:", url);
+
+        if (url.includes("github")) {
+          const pathSegments = new URL(url).pathname.split('/').filter(Boolean);
+          const username = pathSegments[1];
+          const repository = pathSegments[2];
+          setIsLoading(true);
+          axios.post(`http://127.0.0.1:5000/readme`, {username: username, repo: repository})
+              .then(res => {
+                setIsLoading(false)
+                chrome.runtime.sendMessage({action: "downloadReadMe", data: ''}, (response: any) => {
+                    // send file
+                })
+              })
+        } else {
+          alert('You must be a public github repository to generate ReadME\'s or ask about a repository.')
+        }
+
       } else {
         console.error('No response received, or response was undefined.');
       }
@@ -22,16 +43,29 @@ const Home = ({ navigate }: any) => {
   };
 
   return (
-      <div className={"w-300 h-300 bg-gray-50 rounded border-4 border-purple-700 m-2"}>
-        <div className={'bg-transparent p-3'}>
-          <AnimatedTextGradient text={"Welcome to RepoReader!"}></AnimatedTextGradient>
+      <div className={"flex flex-col items-center w-300 h-300 bg-gray-50 rounded border-4 border-purple-700 m-2"}>
+        <div className={'w-full max-w-xs bg-transparent p-3'}>
+          <AnimatedTextGradient text={"Welcome to RepoRead!"}></AnimatedTextGradient>
         </div>
-        <div className={"flex-1 justify-items-center align-middle"}>
+        <div className="flex flex-col h-full justify-center items-center w-full">
           <button
-              className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              className="bg-purple-700 hover:bg-purple-800 text-white font-bold mb-4 py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"
               onClick={generateReadMe}
           >
-            Generate ReadMe
+            !isLoading ? <h1>Generate ReadME</h1> :
+            <BookLoader
+                background={"linear-gradient(135deg, #6066FA, #4645F6)"}
+                desktopSize={"100px"}
+                mobileSize={"80px"}
+                textColor={"#4645F6"}
+            />
+          </button>
+          <button
+              className="bg-purple-700 hover:bg-purple-800 text-white font-bold mb-4 py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              onClick={() => {
+              }}
+          >
+            Repo Chat
           </button>
         </div>
       </div>

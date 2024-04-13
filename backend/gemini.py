@@ -23,21 +23,37 @@ def chat_func(query_string: str, chat) -> str:
     
 def genReadMe(code_string: str) -> str:
     #model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(f"Generate a ReadME file for this code: {code_string}")
+
+    response = model.generate_content(f"Determine if this repo is research, a project, or a package and return the result in one word either: research, project, package : {code_string}")
     print(response.text)
+
+    if response.text == "research":
+        template = read_md_to_string("template_readme/Research.md")
+    else:
+        template = read_md_to_string("template_readme/Project.md")
+    
+    response = model.generate_content(f"Generate a ReadME file for this code using this template {template} but only use the sections of the template that are relevant to the code: {code_string}")
 
     return response.text
 
-
+def read_md_to_string(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        return content
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return None
 
 if __name__ == '__main__':
     chat = None
     chat_history = []
 
     string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
-    #print(genReadMe(string))
+    print(genReadMe(string))
 
-    idk, chat = readrepo(string, chat_history)
-    idk = chat_func("what does this code do", chat)
-    idk = chat_func("are there other ways to do this same thing but with a for loop", chat)
-    print(chat.history)
+    # idk, chat = readrepo(string, chat_history)
+    # idk = chat_func("what does this code do", chat)
+    # idk = chat_func("are there other ways to do this same thing but with a for loop", chat)
+    # print(chat.history)
+

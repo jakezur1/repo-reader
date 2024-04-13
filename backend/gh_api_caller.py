@@ -5,6 +5,12 @@ import json
 
 owner = 'jakezur1'
 repo = 'factorlib'
+
+def set_variables(own, rep):
+    global owner 
+    owner = own
+    global repo 
+    repo = rep
 path = ''
 url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
 
@@ -14,6 +20,8 @@ headers = {
     'Authorization': f'Bearer {token}',
     'X-GitHub-Api-Version': '2022-11-28'
 }
+
+def get_commit_history(url, headers):
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)

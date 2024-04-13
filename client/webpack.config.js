@@ -34,13 +34,13 @@ module.exports = {
 	plugins: [
 		new CopyPlugin({
 			patterns: [
-				{from: "manifest.json", to: "../manifest.json"},
+				{from: "manifest.json", to: "./manifest.json"},
 			],
 		}),
 		...getHtmlPlugins(["index"]),
 	],
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
+		extensions: [".tsx", ".ts", ".js", ".jsx"],
 	},
 	output: {
 		path: path.join(__dirname, "dist/js"),

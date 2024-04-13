@@ -1,7 +1,7 @@
 import os
 import re
 import sqlite3
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify, send_file
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify, send_file, make_response
 import json
 import requests
 import random
@@ -11,19 +11,27 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/readme": {"origins": "chrome-extension://lckojlmkgfdgahdmpjddkbonggndjobi"}})
+cors = CORS(app, support_credentials=True)
 
 app.secret_key = 'repo'
 chat = None
 
 
-## read me generation
-@app.route('/readme', methods=['GET', 'POST'])
+def _build_cors_preflight_response():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', '*')
+    response.headers.add('Access-Control-Allow-Methods', '*')
+    return response
+
+
+@app.route('/readme', methods=['GET', 'POST', 'OPTIONS'])
 def generation():
     method = request.method
-    
-    if method == 'POST':
-        query = request.json
+    if request.method == 'OPTIONS':
+        return _build_cors_preflight_response()
+    elif request.method == 'POST':
+        query = request.get_json()
         username = query['username']
         repo = query['repository']
 

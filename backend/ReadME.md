@@ -597,3 +597,404 @@ This package is intended for local development and testing. For production use, 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/) 
+# Sequence to Sequence Text Summarization with Attention
+
+This project explores and implements a sequence-to-sequence (seq2seq) model with attention for text summarization tasks. The model is built using PyTorch and leverages an encoder-decoder architecture, enhanced by an attention mechanism to improve summarization quality.
+
+### Features
+
+- Implements a seq2seq model with attention for text summarization.
+- Utilizes PyTorch for model development and training.
+- Incorporates an encoder-decoder architecture with LSTM layers.
+- Employs an attention mechanism to focus on relevant parts of the input text.
+- Provides training and inference capabilities for text summarization.
+
+### Prerequisites
+
+Before installing and running the code, ensure you have the following dependencies installed:
+
+*   [PyTorch](https://pytorch.org/)
+*   [NumPy](https://numpy.org/)
+*   [spaCy](https://spacy.io/)
+*   [torchtext](https://pytorch.org/text/stable/index.html)
+
+You can install these dependencies using pip:
+
+```bash
+pip install torch numpy spacy torchtext
+```
+
+## Getting Started
+
+To get started with the project, follow these steps:
+
+1.  **Clone the repository:**
+
+```bash
+git clone https://github.com/your_username/sequence-to-sequence-text-summarization.git
+```
+
+2.  **Install dependencies:**
+
+```bash
+cd sequence-to-sequence-text-summarization
+pip install -r requirements.txt
+```
+
+3.  **Download and prepare the dataset:**
+
+    The code assumes you have a dataset suitable for text summarization, such as the CNN/Daily Mail dataset. You'll need to download and preprocess the data into a format suitable for training the model. 
+
+4.  **Train the model:**
+
+    Run the training script to train the seq2seq model on your dataset. The training process may take some time depending on your dataset size and hardware.
+
+```bash
+python train.py --data_path path/to/your/data --epochs num_epochs
+```
+
+5.  **Generate summaries:**
+
+    Once the model is trained, you can use it to generate summaries of input text. 
+
+```bash
+python inference.py --model_path path/to/trained/model --text "your input text" 
+```
+
+
+
+## Usage
+
+The codebase is organized into several files, each with specific functionalities:
+
+*   **`model.py`**: Defines the seq2seq model architecture, including the encoder, decoder, and attention mechanism.
+*   **`train.py`**: Contains the training loop for the model, handling data loading, optimization, and evaluation.
+*   **`inference.py`**: Provides functions for loading a trained model and generating summaries for input text.
+*   **`utils.py`**: Includes utility functions for data preprocessing, text processing, and model evaluation. 
+
+To train the model, you would primarily work with `train.py`, specifying the data path and training parameters. Once trained, `inference.py` allows you to load the model and generate summaries for new text inputs. The `model.py` and `utils.py` files provide the underlying architecture and helper functions for the summarization process. 
+
+## Deployment
+
+This project is designed for experimental and educational purposes. For deployment in a production environment, you would need to consider aspects such as:
+
+*   **Model serving**: Integrating the trained model into a web service or API for real-time summarization.
+*   **Scalability**: Ensuring the system can handle a large volume of summarization requests efficiently.
+*   **Performance optimization**: Fine-tuning the model and infrastructure for optimal speed and accuracy.
+
+### License
+
+MIT
+
+### Acknowledgments
+
+*   [PyTorch](https://pytorch.org/)
+*   [spaCy](https://spacy.io/)
+*   [torchtext](https://pytorch.org/text/stable/index.html) 
+# boggle_solver
+
+This repository houses a Python-based Boggle solver designed to find all possible words within a given Boggle board configuration. 
+
+[![MIT License][license-shield]][license-url]
+
+
+### Prerequisites
+
+To run this code, you will need the following Python libraries:
+
+* **NLTK (Natural Language Toolkit)**: For accessing a comprehensive word list. 
+    * Installation: `pip install nltk`
+* **PyEnchant**: For spell checking and word validation. 
+    * Installation: `pip install pyenchant` 
+
+
+## Getting Started
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your_username/boggle_solver.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd boggle_solver
+   ```
+
+3. **Download the NLTK word list (required for the first run):**
+
+   ```python
+   import nltk
+   nltk.download('words')
+   ```
+   
+4. **Run the main script:** 
+   ```python 
+   python boggle_solver.py
+   ```
+
+## Usage
+
+The codebase is organized as follows:
+
+* **`boggle_solver.py`**: This is the main script that drives the Boggle solver. It handles:
+    * Taking user input for the Boggle board configuration.
+    * Initializing the Boggle solver object.
+    * Running the solver to find all possible words.
+    * Printing the results. 
+* **`boggle.py`**: This file contains the `BoggleSolver` class, which implements the core logic for solving the Boggle board. Key methods include:
+    * `__init__`: Initializes the solver with the board configuration and word list.
+    * `solve`: The main method that finds all possible words on the board using a recursive backtracking algorithm. 
+    * `is_valid_word`: Checks if a word is valid using PyEnchant and if it exists in the NLTK word list.
+* **`trie.py`**: This file implements a Trie data structure, which is used to efficiently store and search for words from the NLTK word list. 
+
+
+To use the Boggle solver, simply run the `boggle_solver.py` script. You will be prompted to enter the Boggle board configuration as a string of characters. The script will then output a list of all possible words that can be formed on the board.
+
+## License
+
+This project is licensed under the MIT License. 
+# Gene Expression with Neural Networks
+
+This project explores the application of neural networks to analyze and predict gene expression patterns. The codebase provides a framework for building and training various neural network models to gain insights from gene expression data. 
+
+
+### Prerequisites
+
+To run this code, you will need the following Python libraries:
+
+* TensorFlow
+* Keras
+* NumPy
+* Pandas
+* scikit-learn
+
+You can install these libraries using pip:
+
+```bash
+pip install tensorflow keras numpy pandas scikit-learn
+```
+
+
+## Getting Started
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/your_username/gene-expression-neural-networks.git
+```
+
+2. **Navigate to the project directory:**
+
+```bash
+cd gene-expression-neural-networks
+```
+
+3. **Install the required dependencies (as mentioned in Prerequisites).** 
+
+4. **Prepare your gene expression data:**
+
+   - Ensure your data is in a suitable format, such as a CSV file with genes as rows and samples as columns.
+   - Preprocess the data as needed (e.g., normalization, feature scaling).
+
+5. **Explore the codebase:**
+
+   - `data_loader.py`: Contains functions to load and preprocess gene expression data.
+   - `models.py`: Defines various neural network architectures for gene expression analysis.
+   - `train.py`: Provides scripts to train and evaluate the models.
+   - `utils.py`: Includes utility functions for data visualization and analysis. 
+
+6. **Run the training script:**
+
+```bash
+python train.py --data_path path/to/your/data.csv --model_type MLP
+```
+
+   - You can modify the `--data_path` argument to specify the location of your data file. 
+   - The `--model_type` argument allows you to choose different neural network architectures (e.g., MLP, CNN, RNN). 
+
+
+## Usage 
+
+The codebase is organized into several modules, each serving a specific purpose:
+
+* **`data_loader.py`**: This module provides functions to load gene expression data from various file formats (e.g., CSV, TSV) and perform necessary preprocessing steps such as normalization and feature scaling. 
+
+* **`models.py`**: This module defines different neural network architectures suitable for gene expression analysis, including Multi-Layer Perceptrons (MLPs), Convolutional Neural Networks (CNNs), and Recurrent Neural Networks (RNNs). You can experiment with different models and hyperparameters to find the best fit for your data.
+
+* **`train.py`**: This module contains the main training script. It handles tasks such as loading data, creating and configuring the model, training the model using the specified data and hyperparameters, and evaluating the model's performance on a held-out test set. 
+
+* **`utils.py`**: This module provides various utility functions for data visualization, performance evaluation, and other helper tasks. 
+
+To start using the codebase, you would typically follow these steps:
+
+1. **Load and preprocess your gene expression data using functions from `data_loader.py`.** 
+2. **Choose or define a suitable neural network model in `models.py`.** 
+3. **Configure and run the training process using the `train.py` script.**
+4. **Evaluate the model's performance and visualize the results using functions from `utils.py`.** 
+
+
+### License
+
+This project is licensed under the MIT License. 
+# Twitter-Data-Analysis 
+
+This project analyzes Twitter data using Tweepy and stores extracted information into a MongoDB database. The analysis focuses on specific users and hashtags, providing insights into Twitter trends and user behavior. 
+
+[![MIT License][license-shield]][license-url]
+
+### Features
+
+- Extracts tweets from Twitter based on user IDs and hashtags.
+- Stores extracted tweets in a MongoDB database.
+- Performs basic analysis on extracted tweets.
+
+### Prerequisites
+
+* Python 3.6 or higher is required to run the scripts.
+* Tweepy library: Install using pip: `pip install tweepy`
+* pymongo library: Install using pip: `pip install pymongo`
+* MongoDB: Download and install from the official website: https://www.mongodb.com/
+
+## Getting Started
+
+Follow these instructions to set up the project and run the analysis:
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your_username/Twitter-Data-Analysis.git
+   ```
+
+2. Install required Python libraries:
+
+   ```bash
+   pip install tweepy pymongo
+   ```
+
+3. Set up MongoDB and ensure it's running.
+
+4. Configure Twitter API credentials:
+   - Create a Twitter developer account and obtain API keys and access tokens.
+   - In the `twitter_credentials.py` file, replace the placeholder values with your actual credentials.
+
+## Usage
+
+The project consists of several Python scripts, each serving a specific purpose:
+
+*   **`twitter_connection.py`**: This script establishes a connection to the Twitter API using your credentials.
+*   **`extract_user_tweets.py`**: Extracts tweets from a specific user's timeline and stores them in the MongoDB database. 
+*   **`extract_hashtag_tweets.py`**:  Extracts tweets containing a particular hashtag and stores them in the database.
+*   **`analyze_tweets.py`**: Performs basic analysis on the extracted tweets, such as counting tweets, identifying most frequent words, etc.
+
+To run the analysis, execute the following steps:
+
+1.  Run `extract_user_tweets.py` to extract tweets from a specific user:
+
+    ```bash
+    python extract_user_tweets.py <user_id>
+    ```
+
+2.  Run `extract_hashtag_tweets.py` to extract tweets with a hashtag:
+
+    ```bash
+    python extract_hashtag_tweets.py <hashtag>
+    ```
+
+3.  Run `analyze_tweets.py` to analyze the extracted tweets:
+
+    ```bash
+    python analyze_tweets.py 
+    ```
+
+The extracted tweets and analysis results will be stored in your MongoDB database. 
+
+## Deployment
+
+This project is designed for local development and analysis. For deployment in a production environment, consider using a cloud-based MongoDB instance and setting up a scheduled task or service to automate data extraction and analysis.
+
+### License
+
+MIT 
+## PokeAPI-Typescript
+
+A project utilizing PokeAPI data using typescript, express, and react 
+
+
+### Features
+
+-   Ability to search for Pokemon by name or ID.
+-   Display detailed information about each Pokemon.
+-   View a list of all Pokemon types.
+
+### Prerequisites 
+
+*   [Node.js](https://nodejs.org)
+*   [npm](https://www.npmjs.com)
+*   [Typescript](https://www.typescriptlang.org)
+*   [React](https://reactjs.org) 
+
+## Getting Started
+
+1.  Clone the repo: 
+    ```
+    git clone https://github.com/your_username/PokeAPI-Typescript.git
+    ```
+2.  Install NPM packages: 
+    ```
+    npm install
+    ```
+
+## Usage
+
+### Directory Structure:
+
+The project follows this structure: 
+
+```
+└── src
+    ├── components
+    │   └── PokemonList.tsx
+    ├── index.tsx
+    ├── interfaces
+    │   └── index.ts
+    └── services
+        └── PokemonService.ts
+```
+
+1.  **index.tsx**: The entry point of the React application. It renders the `PokemonList` component.
+
+2.  **components/PokemonList.tsx**: This component fetches and displays a list of Pokemon. It uses the `PokemonService` to retrieve data from the PokeAPI.
+
+3.  **services/PokemonService.ts**: This service interacts with the PokeAPI using Axios to fetch Pokemon data.
+
+4.  **interfaces/index.ts**: This file defines the interfaces for Pokemon data, ensuring type safety throughout the application.
+
+### Running the Application
+
+1.  Start the development server:
+
+```
+npm start
+```
+
+2.  Open http://localhost:3000 in your browser to view the application.
+
+
+
+## Deployment
+
+This project was designed to be run locally, however if you wanted to deploy it. You could follow these steps:
+
+1.  Build the React application for production:
+
+```
+npm run build
+```
+
+2.  Deploy the contents of the 'build' folder to a static file hosting service such as Netlify or Vercel. 

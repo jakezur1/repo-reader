@@ -22,12 +22,12 @@ def generation():
         
         username = query['username']
         repo = query['repository']
-        
-        gh_api_caller.set_variables(username, repo)
+        print(username)
+        print(repo)
 
         #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
-        full, req, sh = gh_api_caller.main()
+        full, req, sh = gh_api_caller.main(username, repo)
 
         #print(query)
 

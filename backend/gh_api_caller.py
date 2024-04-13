@@ -3,24 +3,6 @@ import sys
 import requests
 import json
 
-owner = 'jakezur1'
-repo = 'factorlib'
-
-def set_variables(own, rep):
-    global owner 
-    owner = own
-    global repo 
-    repo = rep
-    
-path = ''
-url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
-
-token = ''
-headers = {
-    'Accept': 'application/vnd.github.v3.raw+json',
-    'Authorization': f'Bearer {token}',
-    'X-GitHub-Api-Version': '2022-11-28'
-}
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
@@ -46,8 +28,21 @@ def get_all_files(url, headers):
     #print(all_files)
     return all_files
 
-def main():
-    files = get_all_files(url, headers = headers)
+def main(owner, repo):
+    owner = owner
+    repo = repo
+    path = ''
+    
+    url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+
+    token = ''
+    headers = {
+        'Accept': 'application/vnd.github.v3.raw+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+
+    files = get_all_files(url, headers)
     output_full = ""
     output_req = ""
     output_sh = ""

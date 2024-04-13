@@ -24,15 +24,6 @@ def chat_func(query_string: str, chat) -> str:
     
 def genReadMe(output_full: str, output_req: str, output_sh: str) -> str:
     #model = genai.GenerativeModel('gemini-pro')
-
-    response = model.generate_content(f"Determine if this repo is research, a project, or a package and return the result in one word either: research, project, package : {output_full}")
-    print(response.text)
-
-    if response.text == "research":
-        template = read_md_to_string("template_readme/Research.md")
-    else:
-        template = read_md_to_string("template_readme/Project.md")
-    
     template = read_md_to_string("template_readme/Project.md")
     response = model.generate_content(f"""
                                       Generate a ReadME file for this code using this template {template}.

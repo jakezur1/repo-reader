@@ -56,7 +56,7 @@ def main(owner, repo):
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
     commit_url = url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
 
-    token = ''
+    token = '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'
     headers = {
         'Accept': 'application/vnd.github.v3.raw+json',
         'Authorization': f'Bearer {token}',

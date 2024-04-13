@@ -1,7 +1,7 @@
 import os
 import re
 import sqlite3
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify, send_file
 import json
 import requests
 import random
@@ -29,28 +29,45 @@ def generation():
 
         full, req, sh = gh_api_caller.main(username, repo)
 
-        #print(query)
-
         ouput = gemini.genReadMe(full, req, sh)
+        #ouput = "dfd"
+
+        # Open a text file in append mode
+        with open("ReadME.md", "a") as file:
+            file.write("")
+            file.write(ouput)
+        file.close()
         
-        response = {
-                "message" : ouput
-            }
-        print(response)
-        return jsonify(response)
+        # response = {
+        #         "message" : ouput
+        #     }
+        # print(response)
+        # return jsonify(response)
+
+        try:
+            return send_file('ReadME.md', as_attachment=True)
+        except Exception as e:
+            return str(e)
     
 @app.route('/start_chat', methods=['GET', 'POST'])
 def parserepo():
     method = request.method
     
     if method == 'POST':
-        #query = request.json
-        #uery = query['message']
-        query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
-        print(query)
+        query = request.json
 
+        username = query['username']
+        repo = query['repository']
+       
+        print(username)
+        print(repo)
+
+        #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
+
+        full, req, sh = gh_api_caller.main(username, repo)
+        
         global chat
-        ouput, chat = gemini.readrepo(query)
+        ouput, chat = gemini.readrepo(full)
 
         response = {
                 "message" : ouput
@@ -63,9 +80,8 @@ def chat_on_code():
     method = request.method
     
     if method == 'POST':
-        #query = request.json
-        #uery = query['message']
-        query = "write this as a for loop"
+        query = request.json
+        query = query['message']
 
         global chat
         ouput = gemini.chat_func(query, chat)
@@ -73,6 +89,7 @@ def chat_on_code():
         response = {
                 "message" : ouput
             }
+        
         print(response)
         return jsonify(response)
 

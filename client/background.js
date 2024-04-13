@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const url = logCurrentTabUrl();
 
     // Send a response back to the sender.
+    console.log(url)
     sendResponse({ message: url });
   } else {
     // Handle any other actions, or send a response indicating the action was not recognized.

@@ -1,9 +1,8 @@
-/*global chrome*/
+/* global chrome */
 import React, {Fragment, useEffect, useState} from 'react';
 import AnimatedTextGradient from './AnimatedTextGradient';
-import {queries} from '@testing-library/react';
 import axios from 'axios';
-import { BookLoader } from "react-awesome-loaders";
+import GridLoader from "react-spinners/GridLoader";
 
 
 const Home = ({navigate}: any) => {
@@ -19,7 +18,7 @@ const Home = ({navigate}: any) => {
       if (response) {
         const url = response.message
         console.log("Response from background:", url);
-
+        console.log(url)
         if (url.includes("github")) {
           const pathSegments = new URL(url).pathname.split('/').filter(Boolean);
           const username = pathSegments[1];
@@ -29,7 +28,7 @@ const Home = ({navigate}: any) => {
               .then(res => {
                 setIsLoading(false)
                 chrome.runtime.sendMessage({action: "downloadReadMe", data: ''}, (response: any) => {
-                    // send file
+                  // send file
                 })
               })
         } else {
@@ -52,13 +51,16 @@ const Home = ({navigate}: any) => {
               className="bg-purple-700 hover:bg-purple-800 text-white font-bold mb-4 py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"
               onClick={generateReadMe}
           >
-            !isLoading ? <h1>Generate ReadME</h1> :
-            <BookLoader
-                background={"linear-gradient(135deg, #6066FA, #4645F6)"}
-                desktopSize={"100px"}
-                mobileSize={"80px"}
-                textColor={"#4645F6"}
-            />
+            {
+              !isLoading ? <h1>Generate ReadME</h1> :
+                  <GridLoader
+                      color={"%6f00ff"}
+                      loading={isLoading}
+                      size={150}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                  />
+            }
           </button>
           <button
               className="bg-purple-700 hover:bg-purple-800 text-white font-bold mb-4 py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"

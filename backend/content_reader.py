@@ -13,12 +13,18 @@ def set_variables(own, rep):
     repo = rep
 path = ''
 url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+commit_url = url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
 
 token = ''
 headers = {
     'Accept': 'application/vnd.github.v3.raw+json',
     'Authorization': f'Bearer {token}',
     'X-GitHub-Api-Version': '2022-11-28'
+}
+commit_headers = {
+  'Accept': 'application/vnd.github+json',
+  'Authorization': 'Bearer {token}', 
+  'X-GitHub-Api-Version': '2022-11-28'
 }
 
 def fetch_contents(url, headers):
@@ -52,13 +58,34 @@ def get_all_files(url, headers):
 
     return all_files
 
+# commit history function, do not call this function with the same url as for repo content
+def get_commit_history(url, headers):
+    items = fetch_contents(url, headers)
+    all_commits = {}
+    if items:
+        for commit in items:
+            commit_sha = commit['sha']
+            commit_message = commit['commit']['message']
+            commit_author_name = commit['commit']['author']['name']
+            commit_author_email = commit['commit']['author']['email']
+            commit_date = commit['commit']['author']['date']
+            
+            all_commits[commit_sha] = {
+                'message': commit_message,
+                'author_name': commit_author_name,
+                'author_email': commit_author_email,
+                'date': commit_date    
+            }
 def main():
+    # file content
     files = get_all_files(url, headers)
     output = ""
     for file_path, content in files.items():
         #print(f"{file_path}: {content}")
         output += f"{file_path}: {content}"
         
+    # commits
+
 
     #print(output)
     #print("Do we have a requirements\n")

@@ -35,7 +35,7 @@ def main(owner, repo):
     
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
 
-    token = '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'
+    token = ''
     headers = {
         'Accept': 'application/vnd.github.v3.raw+json',
         'Authorization': f'Bearer {token}',

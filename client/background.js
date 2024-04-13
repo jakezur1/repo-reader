@@ -1,9 +1,12 @@
 /*global chrome*/
 // This is a simple message handler that responds to messages with a predefined action.
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check the action property to determine what to do.
+  console.log("ni");
   if (message.action === "generateReadme") {
     // Your logic to handle the 'generateReadme' action goes here.
+    console.log("hi");
     logCurrentTabUrl();
     console.log("Received generateReadme action");
 

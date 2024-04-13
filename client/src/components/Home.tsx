@@ -5,12 +5,14 @@ import AnimatedTextGradient from './AnimatedTextGradient';
 
 const Home = ({ navigate }: any) => {
   const generateReadMe = () => {
+    console.log('krish is a fag');
     chrome.runtime.sendMessage({ action: "generateReadme" }, (response: any) => {
       if (chrome.runtime.lastError) {
+        console.log("retard");
         console.error(chrome.runtime.lastError.message);
         return;
       }
-
+      console.log("Krish is a queer");
       if (response) {
         console.log("Response from background:", response.status);
       } else {

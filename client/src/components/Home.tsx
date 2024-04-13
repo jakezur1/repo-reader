@@ -14,7 +14,7 @@ const Home = ({navigate}: any) => {
     return <RepoChat />;
   }
   const generateReadMe = () => {
-    chrome.runtime.sendMessage({action: "generateReadme"}, (response: any) => {
+    chrome.runtime.sendMessage({action: "generateReadMe"}, (response: any) => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
         return;
@@ -34,13 +34,16 @@ const Home = ({navigate}: any) => {
               })
               .then(res => {
                 setReadMeIsLoading(false)
-                const file = response.data
-                chrome.runtime.sendMessage({action: "downloadReadMe", data: file}, (response: any) => {
-                  // send file
-                })
-              }).catch(() => {
-            console.log('hi')
-          })
+                const fileContents = res.data.message
+                console.log(fileContents)
+                const element = document.createElement("a");
+                const file = new Blob([fileContents], {type: 'text/markdown'});
+                element.href = URL.createObjectURL(file);
+                element.download = "ReadME.md";
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+              })
         } else {
           alert('You must be a public github repository to generate ReadME\'s or ask about a repository.')
         }

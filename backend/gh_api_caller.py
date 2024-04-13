@@ -8,7 +8,6 @@ token = os.environ.get('GITHUB_API_TOKEN')
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
-    print(response)
     if response.status_code == 200:
         return response.json()
     else:

@@ -3,30 +3,13 @@
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check the action property to determine what to do.
-  // console.log("ni");
-  if (message.action === "generateReadme") {
+  console.log("ni");
+  if (message.action === "generateReadMe") {
     // Your logic to handle the 'generateReadme' action goes here.
     getCurrentTabUrl().then(url => {
       sendResponse({ message: url });
     }).catch(error => {
       console.error("Error:", error);
-    });
-  }
-  else if(message.action == "downloadReadMe"){
-    const data = message.data;
-    console.log(data)
-    const blob = new Blob([data], {type: 'text/plain'});
-    const url = URL.createObjectURL(blob);
-    chrome.downloads.download({
-      url: url,
-      filename: "myReadMe.md",
-      conflictAction: 'uniquify'
-    }, (downloadId) => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError);
-      } else {
-        console.log(`Download initiated with ID: ${downloadId}`);
-      }
     });
   }
   else {

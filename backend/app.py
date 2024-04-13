@@ -33,7 +33,7 @@ def generation():
         #ouput = "dfd"
 
         # Open a text file in append mode
-        with open("../ReadME.md", "a") as file:
+        with open("ReadME.md", "a") as file:
             file.write("")
             file.write(ouput)
         file.close()
@@ -45,7 +45,7 @@ def generation():
         # return jsonify(response)
 
         try:
-            return send_file('../ReadME.md', as_attachment=True)
+            return send_file('ReadME.md', as_attachment=True)
         except Exception as e:
             return str(e)
     

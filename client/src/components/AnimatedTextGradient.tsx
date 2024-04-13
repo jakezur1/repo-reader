@@ -23,7 +23,7 @@ const gradient = keyframes`
 `;
 
 const AnimatedGradientText = styled.h1`
-    animation: ${gradient} 5s ease-in-out infinite;
+    animation: ${gradient} 4s ease-in-out infinite;
     background: linear-gradient(to right bottom, #ae75ff, #8f40ff, #580cc4,  #38077d);
     background-size: 300%;
     background-clip: text;

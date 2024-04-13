@@ -3,6 +3,7 @@ import sys
 import requests
 import json
 
+token = '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'
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
@@ -54,25 +55,32 @@ def get_git_tree(url, headers):
     print("hello world")
 
 
+def commit_main(owner, repo):
+    owner = owner
+    repo = repo
+    path = ''
+    
+    commit_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
+
+    commit_headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {token}', 
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+    
+    dict = {}
+    dict = get_commit_history(commit_url, commit_headers)
+    return dict
+
 def main(owner, repo):
     owner = owner
     repo = repo
     path = ''
     
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
-    commit_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
-    tree_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
-
-    token = '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'
     headers = {
         'Accept': 'application/vnd.github.v3.raw+json',
         'Authorization': f'Bearer {token}',
-        'X-GitHub-Api-Version': '2022-11-28'
-    }
-
-    commit_headers = {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': f'Bearer {token}', 
         'X-GitHub-Api-Version': '2022-11-28'
     }
 
@@ -80,10 +88,6 @@ def main(owner, repo):
     output_full = ""
     output_req = ""
     output_sh = ""
-
-    # commits
-    get_commit_history(commit_url, commit_headers)
-    # ary do what u like here with commits
 
     for file_path, content in files.items():
         #print(f"{file_path}: {content}")

@@ -19,17 +19,20 @@ def generation():
     
     if method == 'POST':
         query = request.json
+        
         username = query['username']
         repo = query['repository']
+        
         gh_api_caller.set_variables(username, repo)
 
         #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
         full, req, sh = gh_api_caller.main()
 
-        print(query)
+        #print(query)
 
         ouput = gemini.genReadMe(full, req, sh)
+        
         response = {
                 "message" : ouput
             }

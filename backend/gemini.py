@@ -24,11 +24,16 @@ def chat_func(query_string: str, chat) -> str:
 def genReadMe(code_string: str) -> str:
     #model = genai.GenerativeModel('gemini-pro')
 
-    #response = model.generate_content(f"Determine if this repo is research, a project, or a package and return the result in one word either: research, project, package : {code_string}")
-    #print(response.text)
+    response = model.generate_content(f"Determine if this repo is research, a project, or a package and return the result in one word either: research, project, package : {code_string}")
+    print(response.text)
 
-    template = read_md_to_string("template_readme/Project.md")
+    if response.text == "research":
+        template = read_md_to_string("template_readme/Research.md")
+    else:
+        template = read_md_to_string("template_readme/Project.md")
+    
     response = model.generate_content(f"Generate a ReadME file for this code using this template {template} but only use the sections of the template that are relevant to the code: {code_string}")
+
     return response.text
 
 def read_md_to_string(file_path):

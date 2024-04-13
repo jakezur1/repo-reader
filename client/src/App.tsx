@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const [page, setPage] = useState('home');
 
-  const navigate = (nextPage: any) => {
+  const navigate = (nextPage: string) => {
     setPage(nextPage);
   };
 

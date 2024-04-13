@@ -7,7 +7,12 @@ import requests
 import random
 import gemini
 import gh_api_caller
+from flask_cors import CORS
+
+
 app = Flask(__name__)
+cors = CORS(app, resources={r"/readme": {"origins": "chrome-extension://lckojlmkgfdgahdmpjddkbonggndjobi"}})
+
 app.secret_key = 'repo'
 chat = None
 
@@ -19,23 +24,21 @@ def generation():
     
     if method == 'POST':
         query = request.json
-        
         username = query['username']
         repo = query['repository']
-        print(username)
-        print(repo)
 
+        print(repo)
         #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
         full, req, sh = gh_api_caller.main(username, repo)
 
-        ouput = gemini.genReadMe(full, req, sh)
+        output = gemini.genReadMe(full, req, sh)
         #ouput = "dfd"
 
         # Open a text file in append mode
         with open("ReadME.md", "a") as file:
             file.write("")
-            file.write(ouput)
+            file.write(output)
         file.close()
         
         # response = {
@@ -95,4 +98,4 @@ def chat_on_code():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run(debug=True)

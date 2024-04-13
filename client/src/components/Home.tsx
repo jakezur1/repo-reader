@@ -22,18 +22,25 @@ const Home = ({navigate}: any) => {
           const username = pathSegments[0];
           const repository = pathSegments[1];
           setReadMeIsLoading(true);
-          axios.post(`http://127.0.0.1:5000/readme`, {username: username, repository: repository}, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': 'chrome-extension://lckojlmkgfdgahdmpjddkbonggndjobi'
-            }
-          })
+          axios.post(`http://127.0.0.1:5000/readme`,
+              {
+                username: username,
+                repository: repository
+              }, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': 'chrome-extension://lckojlmkgfdgahdmpjddkbonggndjobi'
+                }
+              })
               .then(res => {
+                console.log('hello')
                 setReadMeIsLoading(false)
                 // chrome.runtime.sendMessage({action: "downloadReadMe", data: ''}, (response: any) => {
                 //   // send file
                 // })
-              })
+              }).catch(() => {
+            console.log('hi')
+          })
         } else {
           alert('You must be a public github repository to generate ReadME\'s or ask about a repository.')
         }

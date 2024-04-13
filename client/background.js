@@ -10,7 +10,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Send a response back to the sender.
     console.log(url)
     sendResponse({ message: url });
-  } else {
+  } 
+  else if(message.action == "downloadReadMe"){
+    const data = message.data ;
+    const blob = new Blob([data], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    chrome.downloads.download({
+      url: url,
+      filename: "myReadMe.txt",
+      conflictAction: 'uniquify'
+    }, (downloadId) => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      } else {
+        console.log(`Download initiated with ID: ${downloadId}`);
+      }
+    });
+  }
+  else {
     // Handle any other actions, or send a response indicating the action was not recognized.
     console.log(`Unrecognized action: ${message.action}`);
     sendResponse({ status: "Unrecognized Action" });

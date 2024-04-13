@@ -3,12 +3,16 @@ import React, {Fragment, useEffect, useState} from 'react';
 import AnimatedTextGradient from './AnimatedTextGradient';
 import axios from 'axios';
 import GridLoader from "react-spinners/GridLoader";
+import RepoChat from './RepoChat';
 
 
 const Home = ({navigate}: any) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const [showRepoChat, setShowRepoChat] = useState<boolean>(false);
+  if (showRepoChat) {
+    return <RepoChat />;
+  }
   const generateReadMe = () => {
     chrome.runtime.sendMessage({action: "generateReadme"}, (response: any) => {
       if (chrome.runtime.lastError) {
@@ -64,7 +68,7 @@ const Home = ({navigate}: any) => {
           </button>
           <button
               className="bg-purple-700 hover:bg-purple-800 text-white font-bold mb-4 py-2 px-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-              onClick={() => {
+              onClick={() => {setShowRepoChat(true)
               }}
           >
             Repo Chat

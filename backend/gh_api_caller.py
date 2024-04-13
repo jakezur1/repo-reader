@@ -28,12 +28,33 @@ def get_all_files(url, headers):
     #print(all_files)
     return all_files
 
+
+# commit history function, do not call this function with the same url as for repo content
+def get_commit_history(url, headers):
+    items = fetch_contents(url, headers)
+    all_commits = {}
+    if items:
+        for commit in items:
+            commit_sha = commit['sha']
+            commit_message = commit['commit']['message']
+            commit_author_name = commit['commit']['author']['name']
+            commit_author_email = commit['commit']['author']['email']
+            commit_date = commit['commit']['author']['date']
+            
+            all_commits[commit_sha] = {
+                'message': commit_message,
+                'author_name': commit_author_name,
+                'author_email': commit_author_email,
+                'date': commit_date    
+            }
+
 def main(owner, repo):
     owner = owner
     repo = repo
     path = ''
     
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+    commit_url = url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
 
     token = ''
     headers = {
@@ -42,10 +63,20 @@ def main(owner, repo):
         'X-GitHub-Api-Version': '2022-11-28'
     }
 
+    commit_headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {token}', 
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+
     files = get_all_files(url, headers)
     output_full = ""
     output_req = ""
     output_sh = ""
+
+    # commits
+    get_commit_history(commit_url, commit_headers)
+    # ary do what u like here with commits
 
     for file_path, content in files.items():
         #print(f"{file_path}: {content}")

@@ -23,12 +23,20 @@ def fetch_contents(url, headers):
     else:
         print(f"Failed to fetch data: {response.status_code}")
         return None
+has_requirements = False
+has_sh = False
 
 def get_all_files(url, headers):
     items = fetch_contents(url, headers)
     all_files = {}
     if items:
         for item in items:
+            if(item['type'] == 'file' and (".sh" in item['name'])):
+                global has_sh
+                has_sh = True
+            if(item['type'] == 'file' and item['name'] == "requirements.txt"):
+                global has_requirements
+                has_requirements = True
             if item['type'] == 'file' and ((".ipynb" not in item['name']) and (".md" not in item['name'])):
                 print(item['name'])
                 file_content = requests.get(item['download_url'], headers=headers).text
@@ -44,9 +52,13 @@ def main():
     for file_path, content in files.items():
         #print(f"{file_path}: {content}")
         output += f"{file_path}: {content}"
+        
 
     #print(output)
+    #print("Do we have a requirements\n")
+    #print(has_requirements)
     return output
 
 if __name__ == "__main__":
     main()
+

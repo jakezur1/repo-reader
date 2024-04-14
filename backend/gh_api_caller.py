@@ -4,6 +4,7 @@ import requests
 import json
 
 token = os.environ.get('GITHUB_API_TOKEN')
+token = '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'
 
 
 def fetch_contents(url, headers):
@@ -56,6 +57,17 @@ def get_git_tree(url, headers):
     # hi im ary
     print("hello world")
 
+commit_headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+}
+
+headers = {
+        'Accept': 'application/vnd.github.v3.raw+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+}
 
 def commit_main(owner, repo):
     owner = owner
@@ -64,16 +76,9 @@ def commit_main(owner, repo):
 
     commit_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
 
-    commit_headers = {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': f'Bearer {token}',
-        'X-GitHub-Api-Version': '2022-11-28'
-    }
-
     dict = {}
     dict = get_commit_history(commit_url, commit_headers)
     return dict
-
 
 def main(owner, repo):
     owner = owner
@@ -81,11 +86,6 @@ def main(owner, repo):
     path = ''
 
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
-    headers = {
-        'Accept': 'application/vnd.github.v3.raw+json',
-        'Authorization': f'Bearer {token}',
-        'X-GitHub-Api-Version': '2022-11-28'
-    }
 
     files = get_all_files(url, headers)
     output_full = ""
@@ -103,8 +103,26 @@ def main(owner, repo):
 
     return output_full, output_req, output_sh
 
+def list_of_files(owner, repo):
+    owner = owner
+    repo = repo
+    path = ''
+
+    url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+
+    files = get_all_files(url, headers)
+    output_full = ""
+    file_list = []
+
+    for file_path, content in files.items():
+        output_full += f"{file_path}: {content}"
+        file_list.append(file_path)
+
+    return output_full, file_list
 
 if __name__ == "__main__":
-    output_full, output_req, output_sh = main()
-    # print(output_full)
+    dict = commit_main('jakezur1', 'factorlib')
+    output_full, output_req, output_sh = main('jakezur1', 'factorlib')
+    print(output_full)
     # print(output_req)
+    print(dict)

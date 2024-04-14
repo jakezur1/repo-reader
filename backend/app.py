@@ -58,6 +58,54 @@ def generation():
             }
 
         return jsonify(response)
+    
+#### Code Review HTTP REQ
+
+@app.route('/code_review', methods=['GET', 'POST', 'OPTIONS'])
+def review():
+    method = request.method
+    if request.method == 'OPTIONS':
+        return _build_cors_preflight_response()
+    
+    elif request.method == 'POST':
+
+        query = request.get_json()
+
+        username = query['username']
+        repo = query['repository']
+
+        if username is None:
+            print("204 Error: Username is null")
+        if repo is None:
+            print("204 Error: Repository is null")
+
+        full, req, sh = gh_api_caller.main(username, repo)
+        
+        if full is None:
+            print("400 Error: Bad Request, Genmini Call Error")
+        else:
+            print("200 OK: Move Forward with Review Generations")
+
+        text, mean, output_arr, pros_arr, cons_arr = gemini.code_review(full)
+        #ouput = "dfd"
+
+        if text is None:
+            print("400 Error: Bad Request, Genmini Generation Error")
+        else:
+            print("200 OK: Send to Frontend")
+
+        
+        response = {
+                "mean" : mean,
+                "scores_array" : output_arr,
+                "pros_array" : pros_arr,
+                "cons_array" : cons_arr,
+                "message" : text
+            }
+
+        return jsonify(response)
+
+
 
 @app.route('/start_chat', methods=['GET', 'POST'])
 def parserepo():

@@ -86,13 +86,19 @@ def review():
         else:
             print("200 OK: Move Forward with Review Generations")
 
-        text, mean, output_arr, pros_arr, cons_arr = gemini.code_review(full)
-        #ouput = "dfd"
+        error = True
 
-        if text is None:
-            print("400 Error: Bad Request, Genmini Generation Error")
-        else:
-            print("200 OK: Send to Frontend")
+        while error:
+            text, mean, output_arr, pros_arr, cons_arr = gemini.code_review(full)
+
+            #ouput = "dfd"
+
+            if (text is None) or (mean is None) or (output_arr is None) or (pros_arr is None) or (cons_arr is None):
+                print("400 Error: Bad Request, Genmini Generation Error")
+
+            else:
+                print("200 OK: Send to Frontend")
+                error = False
 
         
         response = {

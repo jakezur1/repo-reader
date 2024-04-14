@@ -4,7 +4,7 @@ import requests
 import json
 
 token = os.environ.get('GITHUB_API_TOKEN')
-token = ''
+token = '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'
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)

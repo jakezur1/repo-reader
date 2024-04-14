@@ -52,6 +52,25 @@ def read_md_to_string(file_path):
     
 def linking_summary(codebase, file_list):
     print(file_list)
+    
+"""
+def list_of_files(owner, repo):
+    owner = owner
+    repo = repo
+    path = ''
+
+    url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+
+    files = get_all_files(url, headers)
+    output_full = ""
+    file_list = []
+
+    for file_path, content in files.items():
+        output_full += f"{file_path}: {content}"
+        file_list.append(file_path)
+
+    return output_full, file_list
+"""
 
 if __name__ == '__main__':
     chat = None

@@ -4,7 +4,7 @@ import requests
 import json
 
 token = os.environ.get('GITHUB_API_TOKEN')
-token = ''
+token = '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'
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
@@ -107,7 +107,7 @@ def main(owner, repo):
 
 if __name__ == "__main__":
     dict = commit_main('jakezur1', 'factorlib')
-    #output_full, output_req, output_sh = main()
-    # print(output_full)
+    #output_full, output_req, output_sh = main('jakezur1', 'factorlib')
+    #print(output_full)
     # print(output_req)
     print(dict)

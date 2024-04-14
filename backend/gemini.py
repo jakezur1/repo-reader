@@ -64,6 +64,7 @@ def add_comments(codebase):
                                              and data structures {codebase}""")
     
     return response.text
+<<<<<<< Updated upstream
 
 def code_review(codebase):
 
@@ -133,6 +134,9 @@ def test(codebase):
     response = model.generate_content(f""" what are the biggest files in this codebase {codebase}""")
     return response.text
 
+=======
+    
+>>>>>>> Stashed changes
 
 
 """
@@ -147,21 +151,30 @@ def list_of_files(owner, repo):
         'Authorization': f'Bearer {token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
+<<<<<<< Updated upstream
     headers = {
         'Accept': 'application/vnd.github.v3.raw+json',
         'Authorization': f'Bearer {token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
+=======
+>>>>>>> Stashed changes
 
     files = get_all_files(url, headers)
     output_full = ""
     file_list = ""
+<<<<<<< Updated upstream
     file_list = ""
+=======
+>>>>>>> Stashed changes
 
     for file_path, content in files.items():
         output_full += f"{file_path}: {content}"
         file_list += f"{file_path}, "
+<<<<<<< Updated upstream
         file_list += f"{file_path}, "
+=======
+>>>>>>> Stashed changes
 
     return output_full, file_list
 """
@@ -175,7 +188,11 @@ if __name__ == '__main__':
     output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'repo-reader')
     #output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
 
+<<<<<<< Updated upstream
     print(test(output_full))
+=======
+    print(add_comments(output_full))
+>>>>>>> Stashed changes
     #print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)

@@ -43,15 +43,19 @@ def generation():
         if repo is None:
             print("204 Error: Repository is null")
 
-        #query = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
-
         full, req, sh = gh_api_caller.main(username, repo)
         
         if full is None:
             print("400 Error: Bad Request, Genmini Call Error")
+        else:
+            print("200 OK: Move Forward with ReadMe Generations")
 
         output = gemini.genReadMe(full, req, sh)
-        #ouput = "dfd"
+
+        if output is None:
+            print("400 Error: Bad Request, Genmini Generation Error")
+        else:
+            print("200 OK: Read Me Generated")
 
         response = {
                 "message" : output

@@ -81,7 +81,7 @@ def code_review(codebase):
                                             give a list back of exaclty the same size as the input list where each value corresponds to its input metric. 
                                             Utilize this template {template} to return your information but make sure to follow it exaclty. 
                                             DO NOT change any header that starts with a '#' and make sure to answer all of them as well! KEEP the WHITE space and line spacing the same as well and DO NOT INCLUDE '*' anywhere!
-                                            IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 15 WORDS and THERE IS 2 FOR both Pro and Con.
+                                            IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 20 WORDS and THERE IS 3 FOR both Pro and Con.
                                       """)
     
     output_arr = ""

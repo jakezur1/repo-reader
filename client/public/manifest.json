@@ -20,6 +20,7 @@
     "activeTab",
     "tabs",
     "storage",
-    "scripting"
+    "scripting",
+    "notifications"
   ]
 }

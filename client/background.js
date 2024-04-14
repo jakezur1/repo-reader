@@ -7,7 +7,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getURL") {
     // Your logic to handle the 'generateReadme' action goes here.
     getCurrentTabUrl().then(url => {
-      sendResponse({ message: url });
+      if (url.includes('github')) {
+        sendResponse({ message: url });
+      } else {
+        chrome.notifications.create('no_github_found', {  // '' for default ID
+          type: 'basic',
+          iconUrl: 'icons/icon128.png',
+          title: 'No Repository Found',
+          message: 'You must be on a public GitHub repository to generate READMEs or request a Code Review.',
+          priority: 2
+        })
+        sendResponse({ message: '' });
+      }
     }).catch(error => {
       console.error("Error:", error);
     });

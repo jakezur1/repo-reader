@@ -29,11 +29,10 @@ const Home = () => {
       }
       if (response) {
         const url = response.message
-        if (url.includes("github")) {
+        if (url !== '') {
           const pathSegments = new URL(url).pathname.split('/').filter(Boolean);
           const username = pathSegments[0];
           const repository = pathSegments[1];
-          console.log(username, repository)
           setReadMeIsLoading(true);
           axios.post(`http://127.0.0.1:5000/readme`,
               {
@@ -53,9 +52,8 @@ const Home = () => {
                 document.body.removeChild(element);
               })
         } else {
-          alert('You must be a public github repository to generate ReadME\'s or ask about a repository.')
+          alert('No Github repository found.')
         }
-
       } else {
         console.error('No response received, or response was undefined.');
       }
@@ -67,9 +65,11 @@ const Home = () => {
   };
 
   return (
-      <div className={`flex flex-col justify-center ${containerSize} items-center bg-gray-50 rounded-3xl transition-all duration-500 ease-in-out`}>
+      <div
+          className={`flex flex-col justify-center ${containerSize} items-center bg-gray-50 rounded-3xl transition-all duration-500 ease-in-out`}>
         <div className={'ml-4 w-full justify-center items-center max-w-xs bg-transparent pl-6 pt-4'}>
-          <AnimatedTextGradient className={"justify-center font-bold text-3xl"} text={"Git. Read. Go."}></AnimatedTextGradient>
+          <AnimatedTextGradient className={"justify-center font-bold text-3xl"}
+                                text={"Git. Read. Go."}></AnimatedTextGradient>
         </div>
         <div className="flex flex-col h-full justify-center items-center w-full">
           {

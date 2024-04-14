@@ -81,7 +81,7 @@ def code_review(codebase):
                                             give a list back of exaclty the same size as the input list where each value corresponds to its input metric. 
                                             Utilize this template {template} to return your information but make sure to follow it exaclty. 
                                             DO NOT change any header that starts with a '#' and make sure to answer all of them as well! KEEP the WHITE space and line spacing the same as well and DO NOT INCLUDE '*' anywhere!
-                                            IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 10 WORDS.
+                                            IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 15 WORDS.
                                       """)
     
     output_arr = ""
@@ -100,11 +100,13 @@ def code_review(codebase):
                     cons = True
                     pros = False
                 else:
-                    pros_arr.append(line[(line.find(":") + 2):])
+                    if len(line[(line.find(":") + 2):]) > 5:
+                        pros_arr.append(line[(line.find(":") + 2):])
         
         if cons:
             if ":" in line:
-                cons_arr.append(line[(line.find(":") + 2):])
+                if len(line[(line.find(":") + 2):]) > 5:
+                    cons_arr.append(line[(line.find(":") + 2):])
 
         if "# Pros:" in line:
             pros = True

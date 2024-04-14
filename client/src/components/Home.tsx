@@ -9,10 +9,15 @@ import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [containerSize, setContainerSize] = useState('w-400 h-300')
 
   const [readMeIsLoading, setReadMeIsLoading] = useState<boolean>(false)
   const [codeReviewIsLoading, setCodeReviewIsLoading] = useState<boolean>(false)
   const [temperature, setTemperature] = useState<number>(50)
+
+  useEffect(() => {
+    setContainerSize('w-250 h-200');
+  }, []);
 
   const generateReadMe = () => {
     chrome.runtime.sendMessage({action: "generateReadMe"}, (response: any) => {
@@ -60,7 +65,7 @@ const Home = () => {
   };
 
   return (
-      <div className={"flex flex-col justify-center items-center w-250 h-200 bg-gray-50 rounded-3xl"}>
+      <div className={`flex flex-col justify-center ${containerSize} items-center bg-gray-50 rounded-3xl transition-all duration-500 ease-in-out`}>
         <div className={'ml-4 w-full justify-center items-center max-w-xs bg-transparent pl-6 pt-4'}>
           <AnimatedTextGradient className={"justify-center font-bold text-3xl"} text={"Git. Read. Go."}></AnimatedTextGradient>
         </div>

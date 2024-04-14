@@ -4,7 +4,7 @@ import requests
 import json
 
 token = os.environ.get('GITHUB_API_TOKEN')
-
+token = ''
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
@@ -12,6 +12,7 @@ def fetch_contents(url, headers):
         return response.json()
     else:
         print(f"Failed to fetch data: {response.status_code}")
+        print("hi")
         return None
 
 
@@ -62,7 +63,7 @@ def commit_main(owner, repo):
     repo = repo
     path = ''
 
-    commit_url = f'https://api.github.com/repos/{owner}/{repo}/contents/commits'
+    commit_url = f'https://api.github.com/repos/{owner}/{repo}/commits'
 
     commit_headers = {
         'Accept': 'application/vnd.github+json',
@@ -106,7 +107,7 @@ def main(owner, repo):
 
 if __name__ == "__main__":
     dict = commit_main('jakezur1', 'factorlib')
-    output_full, output_req, output_sh = main('jakezur1', 'factorlib')
+    #output_full, output_req, output_sh = main()
     # print(output_full)
     # print(output_req)
     print(dict)

@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled, {keyframes} from "styled-components";  // Consolidate imports from styled-components
 
 interface AnimatedTextGradientProps {
   text: string;  // Define the type of the 'text' prop
+  className: string
 }
 
-const AnimatedTextGradient: React.FC<AnimatedTextGradientProps> = ({text}) => {
-  return <AnimatedGradientText className={"font-bold text-4xl"}>{text}</AnimatedGradientText>;
+const AnimatedTextGradient: React.FC<AnimatedTextGradientProps> = ({text, className}) => {
+
+  return <AnimatedGradientText className={className}>{text}</AnimatedGradientText>;
 };
 
 

@@ -4,11 +4,27 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        '300': '300px',  // defining custom width
+        '250': '250px',
+        '400': '400px',
+        '150': '150px'
       },
       height: {
-        '300': '300px',  // defining custom height
-      }
+        '200': '200px',
+        '300': '300px',
+      },
+      keyframes: {
+        underlineSlide: {
+          '0%': { width: '0', transform: 'translateX(-50%)', left: '50%' },
+          '100%': { width: '100%', transform: 'translateX(0)', left: '0%' },
+        }
+      },
+      animation: {
+        slide: 'underlineSlide 0.5s forwards',
+      },
+      transitionProperty: {
+        'height': 'height',
+        'width': 'width',
+      },
     },
   },
   variants: {

@@ -1,4 +1,4 @@
-# RepoRead
+# Git. Read. Go.
 
 This project is a Chrome extension that generates ReadMEs and provides repository explanations using Gemini 1.5 Pro, a large language model.
 

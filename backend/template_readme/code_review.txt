@@ -2,25 +2,27 @@
 Evaluation Scores: [Array of Scores]
 
 # General Overview of the codebase
-2 sentences on what the code does
+4 to 5 sentences on what the code does
 
 # Here are some Pros and Cons:
 
 # Pros:
 * Bullet 1:
 * Bullet 2:
+* Bullet 3:
 (Example: Bullet (bullet number): The code is well-structured and modular, with clear separation of concerns between different classes and functions.)
 
 # Cons:
 * Bullet 1:
 * Bullet 2:
+* Bullet 3:
 (Example:  Bullet (bullet number): The codebase heavily relies on external libraries, which could introduce dependencies and potential compatibility issues.)
 
 Here's an evaluation of the codebase based on the criteria you provided, with scores from 1 (poor) to 10 (excellent)
 
-* Functionality (?/10): 2-3 sentence about this code's Functionality
-* Correctness (?/10): 2-3 sentence about this code's Correctness
-* Code Quality (?/10): 2-3 sentence about this code's Quality
-* Performance (?/10): 2-3 sentence about this code's Performance
-* Maintainability (?/10): 2-3 sentence about this code's Maintainability
-* Usability (?/10): 2-3 sentence about this code's Usability
+* Functionality (?/10): 4 sentence about this code's Functionality
+* Correctness (?/10): 4 sentence about this code's Correctness
+* Code Quality (?/10): 4 sentence about this code's Quality
+* Performance (?/10): 4 sentence about this code's Performance
+* Maintainability (?/10): 4 sentence about this code's Maintainability
+* Usability (?/10): 4 sentence about this code's Usability

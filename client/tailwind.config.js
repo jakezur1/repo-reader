@@ -18,6 +18,12 @@ module.exports = {
           '100%': { width: '100%', transform: 'translateX(0)', left: '0%' },
         }
       },
+      listStyleType: {
+        none: 'none',
+        disc: 'disc',  // default bullet style
+        decimal: 'decimal',  // for numbers
+        square: 'square',  // square bullets
+      },
       animation: {
         slide: 'underlineSlide 0.5s forwards',
       },

@@ -3,8 +3,8 @@
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check the action property to determine what to do.
-  console.log("ni");
-  if (message.action === "generateReadMe") {
+
+  if (message.action === "getURL") {
     // Your logic to handle the 'generateReadme' action goes here.
     getCurrentTabUrl().then(url => {
       sendResponse({ message: url });

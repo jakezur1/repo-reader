@@ -19,8 +19,10 @@ const Home = () => {
     setContainerSize('w-250 h-200');
   }, []);
 
+
+
   const generateReadMe = () => {
-    chrome.runtime.sendMessage({action: "generateReadMe"}, (response: any) => {
+    chrome.runtime.sendMessage({action: "getURL"}, (response: any) => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
         return;
@@ -93,7 +95,7 @@ const Home = () => {
             !codeReviewIsLoading ?
                 <button
                     className="bg-purple-700 w-150 h-8 hover:bg-purple-800 text-white font-bold mb-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105 disabled:opacity-50"
-                    disabled={readMeIsLoading}
+                    disabled={codeReviewIsLoading}
                     onClick={generateCodeReview}
                 >
                   Code Review
@@ -108,6 +110,7 @@ const Home = () => {
                     wrapperClass=""
                 />
           }
+          
         </div>
       </div>
   );

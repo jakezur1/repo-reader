@@ -5,7 +5,40 @@ import json
 import mimetypes
 
 token = os.environ.get('GITHUB_API_TOKEN')
-token = ''
+
+
+
+allowed_files = [
+    ".py",    # Python
+    ".java",  # Java
+    ".js",    # JavaScript
+    ".ts",    # TypeScript
+    ".rb",    # Ruby
+    ".cpp",   # C++
+    ".c",     # C
+    ".cs",    # C#
+    ".php",   # PHP
+    ".swift", # Swift
+    ".go",    # Go
+    ".rs",    # Rust
+    ".kt",    # Kotlin
+    ".scala", # Scala
+    ".m",     # Objective-C
+    ".pl",    # Perl
+    ".lua",   # Lua
+    ".groovy",# Groovy
+    ".r",     # R
+    ".dart",  # Dart
+    ".jl",    # Julia
+    ".hs",    # Haskell
+    ".sh",    # Shell Scripts
+    ".vb",    # Visual Basic
+    ".f90",   # Fortran
+    ".txt",    # Text files
+    ".json",
+    ".html",
+    ".css"
+]
 
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
@@ -16,6 +49,15 @@ def fetch_contents(url, headers):
         print("hi")
         return None
 
+def determine_allow(name, type):
+    global allowed_files
+    if(type != 'file'):
+        return False
+    for type in allowed_files:
+        if(type in name):
+            return True
+    return False
+
 
 def get_all_files(url, headers):
     items = fetch_contents(url, headers)
@@ -24,15 +66,14 @@ def get_all_files(url, headers):
     if items:
         for item in items:
             # checks if image
-            file_path = item['path']  
-            mime_type = mimetypes.guess_type(file_path)
+            file_name = item['name']  
+            mime_type, _ = mimetypes.guess_type(file_name)
+            allowed = determine_allow(item['name'], item['type'])
             if(mime_type.startswith('image/')):
                 response = requests.get(item['download_url'], headers=headers)
                 if response.status_code == 200:
                     image_data[item['path']] = response.content
-    
-            elif item['type'] == 'file' and ((".ipynb" not in item['name']) and (".md" not in item['name']) and (
-                    ".gitignore" not in item['name'])):
+            elif allowed:
                 # print(item['name'])
                 file_content = requests.get(item['download_url'], headers=headers).text
                 all_files[item['path']] = file_content

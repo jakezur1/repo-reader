@@ -129,6 +129,11 @@ def code_review(codebase):
     print(cons_arr)
     return response.text, mean, output_arr, pros_arr, cons_arr
 
+def test(codebase):
+    response = model.generate_content(f""" what are the biggest files in this codebase {codebase}""")
+    return response.text
+
+
 
 """
 def list_of_files(owner, repo):
@@ -160,10 +165,10 @@ if __name__ == '__main__':
 
     #string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
-    output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'factorlib')
+    output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'repo-reader')
     #output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
 
-    print(code_review(output_full))
+    print(test(output_full))
     #print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)

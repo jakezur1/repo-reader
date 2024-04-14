@@ -50,9 +50,21 @@ def read_md_to_string(file_path):
         print(f"Error reading file: {e}")
         return None
     
-def linking_summary(codebase, file_list):
-    print(file_list)
+# def linking_summary(codebase, file_list):
+#     response = model.generate_content(f""" I need a 3-4 sentence description of each file that contains code in this codebase, {codebase} 
+#                                             and how they link together using the file list and directory tree, {file_list} """)
     
+#     return response.text
+
+def add_comments(codebase):
+    response = model.generate_content(f""" Can you add in line comments to the actualy code in cleaner.py that describe each 
+                                             how all the key elements of the code work including important functions
+                                             and data structures {codebase}""")
+    
+    return response.text
+    
+
+
 """
 def list_of_files(owner, repo):
     owner = owner
@@ -60,14 +72,19 @@ def list_of_files(owner, repo):
     path = ''
 
     url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
+    headers = {
+        'Accept': 'application/vnd.github.v3.raw+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
 
     files = get_all_files(url, headers)
     output_full = ""
-    file_list = []
+    file_list = ""
 
     for file_path, content in files.items():
         output_full += f"{file_path}: {content}"
-        file_list.append(file_path)
+        file_list += f"{file_path}, "
 
     return output_full, file_list
 """
@@ -81,8 +98,8 @@ if __name__ == '__main__':
     output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'factorlib')
     #output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
 
-    #print(linking_summary(output_full, file_list))
-    print(genReadMe(output_full, output_req, output_sh))
+    print(add_comments(output_full))
+    #print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)
     # idk = chat_func("what does this code do", chat)

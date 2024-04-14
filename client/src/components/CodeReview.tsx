@@ -42,14 +42,14 @@ const CodeReview = () => {
 
                 setCodeReviewIsLoading(false)
                 const sum = res.data.scores_array.reduce((acc: number, val: number) => acc + val, 0);
-                const mean = sum / res.data.scores_array.length; 
+                const mean = sum / res.data.scores_array.length;
                 console.log(Math.round(mean))
                 setRating(Math.round(mean))
                 setRatings(res.data.scores_array)
                 setStrengths(res.data.pros_array)
                 setWeaknesses(res.data.cons_array)
                 console.log(res.data.message.mean)
-                
+
               })
         }
         else {
@@ -85,7 +85,6 @@ const CodeReview = () => {
 
   }, []);
 
-
   const goBack = () => {
     navigate('/')
   }
@@ -93,27 +92,9 @@ const CodeReview = () => {
   return (
       <div
           className={`flex flex-col items-center ${containerSize} bg-gray-50 rounded-3xl transition-all duration-500 ease-in-out`}>
-            {
-            !codeReviewIsLoading ?
-                <button
-                    className="bg-purple-700 w-150 h-8 hover:bg-purple-800 text-white font-bold mb-4 rounded transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105 disabled:opacity-50"
-                    disabled={codeReviewIsLoading}
-                >
-                  Code Review
-                </button> :
-                <ThreeDots
-                    visible={true}
-                    width="60"
-                    color="#9436ff"
-                    radius="9"
-                    ariaLabel="three-dots-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                />
-          }
         <div className={'flex flex-row w-full h-20'}>
           <div className={'flex flex-row items-center w-full max-w-xs bg-transparent pl-6 pt-4'}>
-            
+
             <button onClick={goBack} className={'mr-2 h-5 w-5'}>
               <FaChevronLeft/>
             </button>

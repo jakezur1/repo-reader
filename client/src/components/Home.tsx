@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [containerSize, setContainerSize] = useState('w-400 h-300')
+  const [containerSize, setContainerSize] = useState('w-520 h-400')
 
   const [readMeIsLoading, setReadMeIsLoading] = useState<boolean>(false)
   const [codeReviewIsLoading, setCodeReviewIsLoading] = useState<boolean>(false)

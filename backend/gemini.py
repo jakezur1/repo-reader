@@ -147,13 +147,20 @@ def list_of_files(owner, repo):
         'Authorization': f'Bearer {token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
+    headers = {
+        'Accept': 'application/vnd.github.v3.raw+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
 
     files = get_all_files(url, headers)
     output_full = ""
     file_list = ""
+    file_list = ""
 
     for file_path, content in files.items():
         output_full += f"{file_path}: {content}"
+        file_list += f"{file_path}, "
         file_list += f"{file_path}, "
 
     return output_full, file_list

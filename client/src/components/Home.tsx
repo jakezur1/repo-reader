@@ -47,7 +47,7 @@ const Home = () => {
                 const element = document.createElement("a");
                 const file = new Blob([fileContents], {type: 'text/markdown'});
                 element.href = URL.createObjectURL(file);
-                element.download = "ReadME.md";
+                element.download = "README.md";
                 document.body.appendChild(element);
                 element.click();
                 document.body.removeChild(element);

@@ -40,6 +40,39 @@ allowed_files = [
     ".css"
 ]
 
+
+allowed_files = [
+    ".py",    # Python
+    ".java",  # Java
+    ".js",    # JavaScript
+    ".ts",    # TypeScript
+    ".rb",    # Ruby
+    ".cpp",   # C++
+    ".c",     # C
+    ".cs",    # C#
+    ".php",   # PHP
+    ".swift", # Swift
+    ".go",    # Go
+    ".rs",    # Rust
+    ".kt",    # Kotlin
+    ".scala", # Scala
+    ".m",     # Objective-C
+    ".pl",    # Perl
+    ".lua",   # Lua
+    ".groovy",# Groovy
+    ".r",     # R
+    ".dart",  # Dart
+    ".jl",    # Julia
+    ".hs",    # Haskell
+    ".sh",    # Shell Scripts
+    ".vb",    # Visual Basic
+    ".f90",   # Fortran
+    ".txt",    # Text files
+    ".json",
+    ".html",
+    ".css"
+]
+
 def fetch_contents(url, headers):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
@@ -69,7 +102,7 @@ def get_all_files(url, headers):
             file_name = item['name']  
             mime_type, _ = mimetypes.guess_type(file_name)
             allowed = determine_allow(item['name'], item['type'])
-            if(mime_type.startswith('image/')):
+            if(mime_type is not None and mime_type.startswith('image/')):
                 response = requests.get(item['download_url'], headers=headers)
                 if response.status_code == 200:
                     image_data[item['path']] = response.content
@@ -77,10 +110,12 @@ def get_all_files(url, headers):
                 # print(item['name'])
                 file_content = requests.get(item['download_url'], headers=headers).text
                 all_files[item['path']] = file_content
-            elif item['type'] == 'dir':
+            if item['type'] == 'dir':
+                #all_dir, image_dir = (get_all_files(item['url'], headers))
                 all_files.update(get_all_files(item['url'], headers))
+                #image_data.update(image_dir)
 
-    return all_files, image_data
+    return all_files
 
 
 # commit history function, do not call this function with the same url as for repo content
@@ -172,8 +207,8 @@ def main(owner, repo):
 
 if __name__ == "__main__":
     #tree = tree_main('jakezur1', 'factorlib')
-    #output_full, output_req, output_sh = main()
-    # print(output_full)
+    output_full, output_req, output_sh = main('jakezur1', 'repo-reader')
+    print(output_full)
     # print(output_req)
     #print(tree)
     pass

@@ -50,8 +50,8 @@ def read_md_to_string(file_path):
         print(f"Error reading file: {e}")
         return None
     
-def linking_summary(codebase):
-    print(codebase)
+def linking_summary(codebase, file_list):
+    print(file_list)
 
 if __name__ == '__main__':
     chat = None
@@ -60,10 +60,10 @@ if __name__ == '__main__':
     #string = "my_list = [5, 2, 8, 3, 1] my_list.sort() print(my_list)"
 
     output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'factorlib')
-    output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
+    #output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
 
-    print(linking_summary(output_full))
-    #print(genReadMe(output_full, output_req, output_sh))
+    #print(linking_summary(output_full, file_list))
+    print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)
     # idk = chat_func("what does this code do", chat)

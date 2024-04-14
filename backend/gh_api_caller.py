@@ -2,6 +2,7 @@ import os
 import sys
 import requests
 import json
+import mimetypes
 
 token = os.environ.get('GITHUB_API_TOKEN')
 token = ''
@@ -19,9 +20,18 @@ def fetch_contents(url, headers):
 def get_all_files(url, headers):
     items = fetch_contents(url, headers)
     all_files = {}
+    image_data = {}
     if items:
         for item in items:
-            if item['type'] == 'file' and ((".ipynb" not in item['name']) and (".md" not in item['name']) and (
+            # checks if image
+            file_path = item['path']  
+            mime_type = mimetypes.guess_type(file_path)
+            if(mime_type.startswith('image/')):
+                response = requests.get(item['download_url'], headers=headers)
+                if response.status_code == 200:
+                    image_data[item['path']] = response.content
+    
+            elif item['type'] == 'file' and ((".ipynb" not in item['name']) and (".md" not in item['name']) and (
                     ".gitignore" not in item['name'])):
                 # print(item['name'])
                 file_content = requests.get(item['download_url'], headers=headers).text
@@ -29,7 +39,7 @@ def get_all_files(url, headers):
             elif item['type'] == 'dir':
                 all_files.update(get_all_files(item['url'], headers))
 
-    return all_files
+    return all_files, image_data
 
 
 # commit history function, do not call this function with the same url as for repo content

@@ -81,7 +81,8 @@ def code_review(codebase):
                                             give a list back of exaclty the same size as the input list where each value corresponds to its input metric. 
                                             Utilize this template {template} to return your information but make sure to follow it exaclty. 
                                             DO NOT change any header that starts with a '#' and make sure to answer all of them as well! KEEP the WHITE space and line spacing the same as well and DO NOT INCLUDE '*' anywhere!
-                                            IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 20 WORDS and THERE IS 3 FOR both Pro and Con.
+     
+                                                                                   IT IS CURCIAL THAT YOU FOLLOW THE template and the EXAMPLES within the TEMPLATE. IT IS ALSO CRUCIAL that the PRO/CON Bullets are EACH MAX 20 WORDS and THERE IS 3 FOR both Pro and Con.
                                       """)
     
     output_arr = ""
@@ -147,30 +148,21 @@ def list_of_files(owner, repo):
         'Authorization': f'Bearer {token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
-<<<<<<< Updated upstream
     headers = {
         'Accept': 'application/vnd.github.v3.raw+json',
         'Authorization': f'Bearer {token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
-=======
->>>>>>> Stashed changes
 
     files = get_all_files(url, headers)
     output_full = ""
     file_list = ""
-<<<<<<< Updated upstream
     file_list = ""
-=======
->>>>>>> Stashed changes
 
     for file_path, content in files.items():
         output_full += f"{file_path}: {content}"
         file_list += f"{file_path}, "
-<<<<<<< Updated upstream
         file_list += f"{file_path}, "
-=======
->>>>>>> Stashed changes
 
     return output_full, file_list
 """
@@ -184,11 +176,7 @@ if __name__ == '__main__':
     output_full, output_req, output_sh = gh_api_caller.main('jakezur1', 'repo-reader')
     #output_full, file_list = gh_api_caller.list_of_files('jakezur1', 'factorlib')
 
-<<<<<<< Updated upstream
     print(test(output_full))
-=======
-    print(add_comments(output_full))
->>>>>>> Stashed changes
     #print(genReadMe(output_full, output_req, output_sh))
 
     # idk, chat = readrepo(string, chat_history)

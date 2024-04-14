@@ -54,8 +54,7 @@ def get_commit_history(url, headers):
 
 
 def get_git_tree(url, headers):
-    # hi im ary
-    print("hello world")
+    return fetch_contents(url, headers)
 
 
 def commit_main(owner, repo):
@@ -75,6 +74,21 @@ def commit_main(owner, repo):
     dict = get_commit_history(commit_url, commit_headers)
     return dict
 
+def tree_main(owner, repo):
+    owner = owner
+    repo = repo
+    branch = 'main'
+
+    tree_url = f'https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1'
+
+    tree_headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+
+    full_tree = get_git_tree(tree_url, tree_headers)
+    return full_tree
 
 def main(owner, repo):
     owner = owner
@@ -106,8 +120,9 @@ def main(owner, repo):
 
 
 if __name__ == "__main__":
-    dict = commit_main('jakezur1', 'factorlib')
-    #output_full, output_req, output_sh = main('jakezur1', 'factorlib')
-    #print(output_full)
+    #tree = tree_main('jakezur1', 'factorlib')
+    #output_full, output_req, output_sh = main()
+    # print(output_full)
     # print(output_req)
-    print(dict)
+    #print(tree)
+    pass

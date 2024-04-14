@@ -79,11 +79,9 @@ const CodeReview = () => {
   ]
   useEffect(() => {
     setContainerSize('w-520 h-400');
+    generateCodeReview();
   }, []);
 
-  useEffect(() => {
-
-  }, []);
 
   const goBack = () => {
     navigate('/')

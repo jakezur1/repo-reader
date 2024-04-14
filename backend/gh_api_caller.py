@@ -5,7 +5,38 @@ import json
 import mimetypes
 
 token = os.environ.get('GITHUB_API_TOKEN')
-token = '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'
+
+allowed_files = [
+    ".py",    # Python
+    ".java",  # Java
+    ".js",    # JavaScript
+    ".ts",    # TypeScript
+    ".rb",    # Ruby
+    ".cpp",   # C++
+    ".c",     # C
+    ".cs",    # C#
+    ".php",   # PHP
+    ".swift", # Swift
+    ".go",    # Go
+    ".rs",    # Rust
+    ".kt",    # Kotlin
+    ".scala", # Scala
+    ".m",     # Objective-C
+    ".pl",    # Perl
+    ".lua",   # Lua
+    ".groovy",# Groovy
+    ".r",     # R
+    ".dart",  # Dart
+    ".jl",    # Julia
+    ".hs",    # Haskell
+    ".sh",    # Shell Scripts
+    ".vb",    # Visual Basic
+    ".f90",   # Fortran
+    ".txt",    # Text files
+    ".json",
+    ".html",
+    ".css"
+]
 
 
 allowed_files = [

@@ -64,7 +64,6 @@ def add_comments(codebase):
                                              and data structures {codebase}""")
     
     return response.text
-<<<<<<< Updated upstream
 
 def code_review(codebase):
 
@@ -134,9 +133,6 @@ def test(codebase):
     response = model.generate_content(f""" what are the biggest files in this codebase {codebase}""")
     return response.text
 
-=======
-    
->>>>>>> Stashed changes
 
 
 """

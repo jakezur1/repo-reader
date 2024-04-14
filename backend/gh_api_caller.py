@@ -5,7 +5,7 @@ import json
 import mimetypes
 
 token = os.environ.get('GITHUB_API_TOKEN')
-token = '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'
+token = ''
 
 
 allowed_files = [

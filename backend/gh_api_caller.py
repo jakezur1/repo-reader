@@ -66,8 +66,8 @@ def get_all_files(url, headers):
     if items:
         for item in items:
             # checks if image
-            file_path = item['path']  
-            mime_type = mimetypes.guess_type(file_path)
+            file_name = item['name']  
+            mime_type, _ = mimetypes.guess_type(file_name)
             allowed = determine_allow(item['name'], item['type'])
             if(mime_type.startswith('image/')):
                 response = requests.get(item['download_url'], headers=headers)
